@@ -2,26 +2,37 @@
 node_modules/
 
 # Logs
+logs/
+*.log
 npm-debug.log*
-
-# Dependency directories
-blaze-engine/node_modules/
-
-# Docker files
-Dockerfile
-.dockerignore
+yarn-debug.log*
+yarn-error.log*
 
 # Environment variables
 .env
+node_modules
 
-# Build directories
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Build output
 dist/
 build/
 
-# IDE specific files
+# IDE-specific files
 .vscode/
 .idea/
+*.iml
 
-# OS generated files
-.DS_Store
-Thumbs.db
+# Docker
+Dockerfile
+.dockerignore
+
+# Blaze engine dependencies
+blaze-engine/node_modules/
+
+# Miscellaneous
+*.bak
+*.swp
+*.tmp
