@@ -1,21 +1,15 @@
 // server.js
 const express = require("express");
-
 const path = require("path");
 const mongoose = require("mongoose");
 const app = express();
 
+// 1. Import your db-interaction module
+const dbInteraction = require("./node_modules/@blaze-case-ai/blaze-engine/server/database/db-interaction");
 // Correctly require the routes from the @blaze-case-ai/blaze-engine package
 const caseTypeRoute = require("./node_modules/@blaze-case-ai/blaze-engine/server/route/case-type-route");
 const caseRoute = require("./node_modules/@blaze-case-ai/blaze-engine/server/route/case-route");
 const componentRoute = require("./node_modules/@blaze-case-ai/blaze-engine/server/route/component-route");
-
-// MongoDB connection
-const dbURI = "mongodb://localhost:27017"; // Replace with your MongoDB connection string
-mongoose
-  .connect(dbURI, { useNewUrlParser: true })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log("MongoDB connection error:", err));
 
 // Serve static files from the "client/public" directory
 app.use(express.static(path.join(__dirname, "client/public")));
@@ -35,6 +29,16 @@ app.use(caseRoute);
 app.use(componentRoute);
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// 2. Connect to MongoDB using your custom module before starting the server
+dbInteraction
+  .connect()
+  .then(() => {
+    console.log("MongoDB connected Successfully");
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
+    process.exit(1);
+  });
