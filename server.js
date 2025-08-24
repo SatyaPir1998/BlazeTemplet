@@ -121,6 +121,10 @@ app.use("/api", dataModelRoute);
 
 const PORT = process.env.PORT || 8080;
 
+app.get('/healthz', (_req,res) => res.send('ok'));
+const port = Number(process.env.PORT) || 8080;
+
+
 // Connect to MongoDB
 const mongoUri = process.env.MONGODB_URI || "mongodb://localhost:27017/CDD";
 console.log("🔗 Connecting to MongoDB...");
