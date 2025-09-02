@@ -27,6 +27,17 @@ app.use(
     credentials: true,
   })
 );
+// Preflight support
+app.options("*", cors({
+  origin: [
+    process.env.DEV_URL,
+    process.env.PRODUCTION_URL,
+    /\.run\.app$/,
+  ],
+  credentials: true,
+  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
+  allowedHeaders: ["Content-Type","Authorization"]
+}));
 // 1. Import your db-interaction module
 const dbInteraction = require("./node_modules/@blaze-case-ai/blaze-engine/server/database/db-interaction");
 
