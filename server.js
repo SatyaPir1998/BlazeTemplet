@@ -21,23 +21,63 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const app = express();
+// app.use(
+//   cors({
+//     origin: [process.env.DEV_URL, process.env.PRODUCTION_URL, /\.run\.app$/,],
+//     credentials: true,
+//   })
+// );
+// // Preflight support
+// app.options("*", cors({
+//   origin: [
+//     process.env.DEV_URL,
+//     process.env.PRODUCTION_URL,
+//     /\.run\.app$/,
+//   ],
+//   credentials: true,
+//   methods: ["GET","POST","PUT","DELETE","OPTIONS"],
+//   allowedHeaders: ["Content-Type","Authorization"]
+// }));
+
+
+
+// Allowed origins    process.env.DEV_URL,
+
+const allowedOrigins = [
+  process.env.DEV_URL,
+  process.env.PRODUCTION_URL
+];
+
+// CORS middleware
 app.use(
   cors({
-    origin: [process.env.DEV_URL, process.env.PRODUCTION_URL, /\.run\.app$/,],
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // allow server-to-server requests
+      if (allowedOrigins.includes(origin) || /\.run\.app$/.test(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
+
 // Preflight support
 app.options("*", cors({
-  origin: [
-    process.env.DEV_URL,
-    process.env.PRODUCTION_URL,
-    /\.run\.app$/,
-  ],
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin) || /\.run\.app$/.test(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
   methods: ["GET","POST","PUT","DELETE","OPTIONS"],
   allowedHeaders: ["Content-Type","Authorization"]
 }));
+
 // 1. Import your db-interaction module
 const dbInteraction = require("./node_modules/@blaze-case-ai/blaze-engine/server/database/db-interaction");
 
