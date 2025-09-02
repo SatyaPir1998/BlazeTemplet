@@ -23,7 +23,7 @@ const mongoose = require("mongoose");
 const app = express();
 app.use(
   cors({
-    origin: [process.env.DEV_URL, process.env.PRODUCTION_URL],
+    origin: [process.env.DEV_URL, process.env.PRODUCTION_URL, /\.run\.app$/,],
     credentials: true,
   })
 );
