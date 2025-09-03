@@ -43,11 +43,14 @@ const app = express();
 
 // Allowed origins    process.env.DEV_URL,
 
+// const allowedOrigins = [
+//   process.env.DEV_URL,
+//   process.env.PRODUCTION_URL
+// ];
 const allowedOrigins = [
   process.env.DEV_URL,
-  process.env.PRODUCTION_URL
+  ...process.env.PRODUCTION_URLS.split(',').map(url => url.trim())
 ];
-
 // CORS middleware
 app.use(
   cors({
