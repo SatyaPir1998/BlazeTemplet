@@ -55,7 +55,8 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin) return callback(null, true); // allow server-to-server requests
+  // allow server-to-server or curl requests (no origin)
+      if (!origin || origin === "null") return callback(null, true);
       if (allowedOrigins.includes(origin) || /\.run\.app$/.test(origin)) {
         callback(null, true);
       } else {
@@ -69,7 +70,8 @@ app.use(
 // Preflight support
 app.options("*", cors({
   origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
+  // allow server-to-server or curl requests (no origin)
+      if (!origin || origin === "null") return callback(null, true);
     if (allowedOrigins.includes(origin) || /\.run\.app$/.test(origin)) {
       callback(null, true);
     } else {
