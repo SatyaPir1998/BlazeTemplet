@@ -49,14 +49,14 @@ const app = express();
 // ];
 const allowedOrigins = [
   process.env.DEV_URL,
-  ...process.env.PRODUCTION_URLS.split(',').map(url => url.trim())
+  process.env.PRODUCTION_URL
 ];
+
 // CORS middleware
 app.use(
   cors({
     origin: function (origin, callback) {
-  // allow server-to-server or curl requests (no origin)
-      if (!origin || origin === "null") return callback(null, true);
+      if (!origin) return callback(null, true); // allow server-to-server requests
       if (allowedOrigins.includes(origin) || /\.run\.app$/.test(origin)) {
         callback(null, true);
       } else {
@@ -70,8 +70,7 @@ app.use(
 // Preflight support
 app.options("*", cors({
   origin: function (origin, callback) {
-  // allow server-to-server or curl requests (no origin)
-      if (!origin || origin === "null") return callback(null, true);
+    if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin) || /\.run\.app$/.test(origin)) {
       callback(null, true);
     } else {
@@ -82,6 +81,7 @@ app.options("*", cors({
   methods: ["GET","POST","PUT","DELETE","OPTIONS"],
   allowedHeaders: ["Content-Type","Authorization"]
 }));
+
 
 // 1. Import your db-interaction module
 const dbInteraction = require("./node_modules/@blaze-case-ai/blaze-engine/server/database/db-interaction");
