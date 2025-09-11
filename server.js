@@ -11,6 +11,7 @@ console.log('NODE_ENV:', process.env.NODE_ENV || 'development');
 console.log('PORT:', process.env.PORT || '8080');
 console.log('MONGODB_URI exists:', !!process.env.MONGODB_URI);
 console.log('NPM_TOKEN exists:', !!process.env.NPM_TOKEN);
+console.log('APP_NAME:', process.env.APP_NAME);
 
 if (!process.env.MONGODB_URI) {
   console.error('❌ MONGODB_URI environment variable is not set!');
