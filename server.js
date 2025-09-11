@@ -58,15 +58,15 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "client/public/index.html"));
 });
 
+app.get('/healthz', (_req,res) => res.send('ok'));
+
 app.get("/api/config", (req, res) => {
   res.json({
     appName: process.env.APP_NAME || "Blaze App" // Reads from .env
   });
 });
 
-app.use("/auth", authRoutes);
-app.use("/api", caseTypeRoute);
-// ... rest of your routes
+
 app.use("/src", express.static(path.join(__dirname, "client/src")));
 app.use(express.json());
 
