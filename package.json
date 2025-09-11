@@ -1,6 +1,6 @@
 {
-  "name": "cdd",
-  "version": "1.0.49",
+  "name": "blaze-app",
+  "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
