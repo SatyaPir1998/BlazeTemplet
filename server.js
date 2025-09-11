@@ -58,8 +58,6 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "client/public/index.html"));
 });
 
-app.get('/healthz', (_req,res) => res.send('ok'));
-
 app.get("/api/config", (req, res) => {
   res.json({
     appName: process.env.APP_NAME || "Blaze App" // Reads from .env
@@ -129,6 +127,8 @@ app.use("/api", dataModelRoute);
 app.use('/api', metricsRouter);
 
 const PORT = process.env.PORT || 8080;
+app.get('/healthz', (_req,res) => res.send('ok'));
+const port = Number(process.env.PORT) || 8080;
 
 // Connect to MongoDB
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/CDD';
