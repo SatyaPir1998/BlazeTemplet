@@ -61,7 +61,9 @@ app.get("/", (req, res) => {
 
 app.get("/api/config", (req, res) => {
   res.json({
-    appName: process.env.APP_NAME || "Blaze App" // Reads from .env
+    appName: process.env.APP_NAME || "Blaze App" ,// Reads from .env
+        appIcon: process.env.APP_ICON || "rocket",
+
   });
 });
 
