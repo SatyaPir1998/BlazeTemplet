@@ -11,7 +11,7 @@
     "postinstall": "echo 'Installation completed - July 11'"
   },
   "dependencies": {
-    "@blaze-case-ai/blaze-engine": "^1.0.63",
+    "@blaze-case-ai/blaze-engine": "^1.0.64",
     "@blaze-case-ai/blaze-ux": "^1.0.7",
     "@fortawesome/fontawesome-free": "^6.6.0",
     "bcryptjs": "^3.0.2",
