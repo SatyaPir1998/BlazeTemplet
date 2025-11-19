@@ -1,5 +1,5 @@
 {
   "id": "support_tickets",
-  "label": "Support Tickets"
+  "label": "Support Tickets",
   "description": "Queue for incoming support cases",
 }
