@@ -40,6 +40,7 @@ console.log("DB Name:", blazeConfig.dbName);
 
 // Correctly require the routes from the @blaze-case-ai/blaze-engine package
 const caseTypeRoute = require("./node_modules/@blaze-case-ai/blaze-engine/server/route/case-type-route");
+const taskQueueRoute = require("./node_modules/@blaze-case-ai/blaze-engine/server/route/task-queue-route.js");
 const caseRoute = require("./node_modules/@blaze-case-ai/blaze-engine/server/route/case-route");
 const componentRoute = require("./node_modules/@blaze-case-ai/blaze-engine/server/route/component-route");
 const authRoutes = require("./node_modules/@blaze-case-ai/blaze-engine/server/controller/auth-controller");
@@ -128,7 +129,7 @@ app.use("/api", caseRoute);
 app.use("/api", componentRoute);
 app.use("/api", dataModelRoute);
 app.use('/api', metricsRouter);
-
+app.use("/api", taskQueueRoute);
 const PORT = process.env.PORT || 8080;
 app.get('/healthz', (_req,res) => res.send('ok'));
 const port = Number(process.env.PORT) || 8080;
