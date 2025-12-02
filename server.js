@@ -47,6 +47,7 @@ const authRoutes = require("./node_modules/@blaze-case-ai/blaze-engine/server/co
 const dataModelRoute = require('./node_modules/@blaze-case-ai/blaze-engine/server/route/data-model-route');
 const authService = require('./node_modules/@blaze-case-ai/blaze-engine/server/service/auth-service');
 const metricsRouter = require('./node_modules/@blaze-case-ai/blaze-engine/server/route/app-metrics.js');
+const functionRoute = require("./node_modules/@blaze-case-ai/blaze-engine/server/route/function-route");
 
 
 // Serve static files from the "client/public" directory
@@ -130,6 +131,8 @@ app.use("/api", componentRoute);
 app.use("/api", dataModelRoute);
 app.use('/api', metricsRouter);
 app.use("/api", taskQueueRoute);
+app.use("/api", functionRoute);
+
 const PORT = process.env.PORT || 8080;
 app.get('/healthz', (_req,res) => res.send('ok'));
 const port = Number(process.env.PORT) || 8080;
